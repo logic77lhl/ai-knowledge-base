@@ -11,7 +11,7 @@ export default defineConfig({
   title: 'AI 知识库',
   description: 'AI 基础知识与技术路线科普文档',
 
-  lastUpdated: true,
+  lastUpdated: false,
   cleanUrls: true,
 
   themeConfig: {
