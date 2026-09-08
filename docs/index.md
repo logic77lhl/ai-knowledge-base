@@ -8,7 +8,7 @@ hero:
   actions:
     - theme: brand
       text: 开始阅读
-      link: /guide/
+      link: /大语言模型/Transformer
     - theme: alt
       text: GitHub
       link: https://github.com/logic77lhl/ai-knowledge-base

@@ -33,18 +33,17 @@ export function generateSidebar(docsDir, rootPath = '') {
   // 处理子目录（递归）
   for (const dir of dirs) {
     const subItems = generateSidebar(docsDir, join(rootPath, dir))
-    if (subItems.length > 0) {
-      // 检查是否有 index.md 作为目录标题
-      const indexMd = join(docsDir, rootPath, dir, 'index.md')
-      let text = dir
-      try {
-        statSync(indexMd)
-        text = dir // 有 index.md 就用目录名，用户可自定义
-      } catch {
-        // 没有 index.md，用目录名
-      }
+    const indexMd = join(docsDir, rootPath, dir, 'index.md')
+    const hasIndex = statSync(indexMd).isFile() || false
+
+    if (hasIndex && subItems.length === 0) {
+      // 只有 index.md，没有子文件 → 作为单页链接
+      const link = '/' + join(rootPath, dir).replace(/\\/g, '/')
+      items.push({ text: dir, link })
+    } else if (subItems.length > 0) {
+      // 有子文件 → 作为可折叠分组
       items.push({
-        text,
+        text: dir,
         collapsible: true,
         collapsed: subItems.length > 5,
         items: subItems,
