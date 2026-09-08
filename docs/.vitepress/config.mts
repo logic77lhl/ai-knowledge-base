@@ -1,4 +1,11 @@
 import { defineConfig } from 'vitepress'
+import { fileURLToPath } from 'url'
+import { dirname, resolve } from 'path'
+import { generateSidebar } from '../../scripts/generate-sidebar.mjs'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const docsDir = resolve(__dirname, '..')
+const sidebar = generateSidebar(docsDir)
 
 export default defineConfig({
   title: 'AI 知识库',
@@ -10,17 +17,9 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
-      { text: '指南', link: '/guide/' },
     ],
 
-    sidebar: [
-      {
-        text: '入门',
-        items: [
-          { text: '快速开始', link: '/guide/' },
-        ],
-      },
-    ],
+    sidebar,
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/logic77lhl/ai-knowledge-base' },
